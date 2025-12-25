@@ -93,7 +93,8 @@
                 <form class="space-y-4 max-w-md">
                     <input type="text" id="name" placeholder="Full Name" class="w-full p-2 border rounded">
                     <input type="email" id="stud_email" placeholder="Email" class="w-full p-2 border rounded">
-                    <button type="button" id="saveNewStudent" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save Student</button>
+                    <button type="button" id="saveNewStudent"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save Student</button>
                 </form>
             </section>
 
@@ -165,7 +166,8 @@
                     <option>Select Class</option>
                     <option>Grade 10</option>
                 </select>
-                <input type="text" id="subName" placeholder="Subject Name" class="w-full p-2 border rounded mb-4 max-w-md block">
+                <input type="text" id="subName" placeholder="Subject Name"
+                    class="w-full p-2 border rounded mb-4 max-w-md block">
                 <button class="bg-orange-600 text-white px-4 py-2 rounded" id="addNewSubject">Assign Subject</button>
             </section>
 
@@ -215,6 +217,20 @@
             </section>
         </main>
     </div>
+
+    <!-- Edit student data popup code -->
+    <div id="editStudentPopup" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white p-6 rounded w-96">
+            <h2 class="text-xl font-bold mb-4">Edit Student</h2>
+            <input id="editName" class="w-full border p-2 mb-3" placeholder="Name">
+            <input id="editEmail" class="w-full border p-2 mb-4" placeholder="Email">
+            <div class="flex justify-end gap-2">
+                <button id="cancelEdit" class="bg-gray-400 px-4 py-2 text-white rounded">Cancel</button>
+                <button id="saveEdit" class="bg-blue-600 px-4 py-2 text-white rounded">Save</button>
+            </div>
+        </div>
+    </div>
+
 
     <script type="module" src="js/main.js"></script>
     <script>
