@@ -14,27 +14,27 @@ document.getElementById("saveNewStudent").addEventListener("click", saveNewStude
 function saveNewStudent() {
 	const studentInfo = {};
 	const idsList = CONFIG.addStudentsFieldIds;
-    let validation = true;
+	let validation = true;
 	for(let i=0;i<idsList.length;i++){
 		const id_name = idsList[i];
 		studentInfo[id_name] = document.getElementById(id_name).value;
 		if(studentInfo[id_name]==''){
 			alert(`${id_name} cannot be blanked`);
-            validation = false;
+			validation = false;
 			break;
 		}
 	}
 
-    if(validation){        
-        const s = new Student();
-        s.addNewStudent(studentInfo);
-    }
+	if(validation){        
+		const s = new Student();
+		s.addNewStudent(studentInfo);
+	}
 }
 
 document.getElementById("viewStudents").addEventListener("click", function(){
-    const s = new Student();
-    const resultBody = document.querySelector('#view-student table tbody');
-    s.viewStudent(resultBody);
+	const s = new Student();
+	const resultBody = document.querySelector('#view-student table tbody');
+	s.viewStudent(resultBody);
 });
 
 /**Class Actions */
@@ -60,7 +60,7 @@ document.getElementById("addNewSubject").addEventListener("click", function(){
 
 document.getElementById('Add-Subject-Menu').addEventListener("click", function(){
 	const existingClasses = localStorage.getItem("classes") || "[]";
-    const classes = JSON.parse(existingClasses);
+	const classes = JSON.parse(existingClasses);
 	if(classes.length){
 		document.getElementById("class-dropdown").innerHTML = "";
 		const options = [];
@@ -73,22 +73,22 @@ document.getElementById('Add-Subject-Menu').addEventListener("click", function()
 });
 document.getElementById('View-Class-Wise-Subject').addEventListener("click", function(){
 	const existingSubjects = localStorage.getItem("subjects") || "[]";
-    const subjects = JSON.parse(existingSubjects);
+	const subjects = JSON.parse(existingSubjects);
 	if(subjects.length){
 		const rows = [];
 		document.getElementById('class-wise-subject-table-body').innerHTML="";
 		subjects.forEach((subject, index)=>{
 			const row = `<tr>
-                    <td class="p-3 border font-semibold text-blue-600">Class ${subject.class}</td>
-                    <td class="p-3 border">${subject.subject}</td>
-                    <td class="p-3 border">Mr. Tarun Meher</td>
-                    <td class="p-3 border">
-                        <button class="text-blue-600 mr-2 hover:underline"><i class="fas fa-edit"></i>
-                            Edit</button>
-                        <button class="text-red-600 hover:underline"><i class="fas fa-trash"></i>
-                            Delete</button>
-                    </td>
-                </tr>`
+					<td class="p-3 border font-semibold text-blue-600">Class ${subject.class}</td>
+					<td class="p-3 border">${subject.subject}</td>
+					<td class="p-3 border">Mr. Tarun Meher</td>
+					<td class="p-3 border">
+						<button class="text-blue-600 mr-2 hover:underline"><i class="fas fa-edit"></i>
+							Edit</button>
+						<button class="text-red-600 hover:underline"><i class="fas fa-trash"></i>
+							Delete</button>
+					</td>
+				</tr>`
 			rows.push(row);
 		});
 		

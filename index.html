@@ -35,6 +35,8 @@
             <div class="p-6 text-2xl font-bold border-b border-slate-700 text-blue-400">
                 SMS Admin
             </div>
+
+            <!-- Start Side Menu Code -->
             <nav class="mt-6">
                 <div>
                     <button onclick="toggleSubmenu('student-sub')"
@@ -81,13 +83,19 @@
                 </div>
             </nav>
         </aside>
+        <!-- End Side Menu Code -->
+
+
 
         <main class="flex-1 p-8">
+
             <div id="dashboard-home" class="content-section active">
                 <h1 class="text-3xl font-bold text-gray-800">Welcome to Dashboard</h1>
                 <p class="text-gray-600 mt-2">Select a menu item from the sidebar to manage records.</p>
             </div>
 
+
+            <!-- Start Student Section Code -->
             <section id="add-student" class="content-section bg-white p-6 rounded-lg shadow">
                 <h2 class="text-xl font-bold mb-4">Add New Student</h2>
                 <form class="space-y-4 max-w-md">
@@ -120,13 +128,16 @@
                     </tbody>
                 </table>
             </section>
+            <!-- End Student Section Code -->
 
+
+            <!-- Start Teacher Section Code -->
             <section id="add-teacher" class="content-section bg-white p-6 rounded-lg shadow">
                 <h2 class="text-xl font-bold mb-4">Add New Teacher</h2>
                 <form class="space-y-4 max-w-md">
-                    <input type="text" placeholder="Teacher Name" class="w-full p-2 border rounded">
-                    <input type="text" placeholder="Expertise" class="w-full p-2 border rounded">
-                    <button class="bg-green-600 text-white px-4 py-2 rounded">Save Teacher</button>
+                    <input type="text" placeholder="Teacher Name" class="w-full p-2 border rounded" id="teacherName">
+                    <input type="text" placeholder="Expertise" class="w-full p-2 border rounded" id="teacherExpertise">
+                    <button class="bg-green-600 text-white px-4 py-2 rounded" id="saveTeacher">Save Teacher</button>
                 </form>
             </section>
 
@@ -152,7 +163,10 @@
                     </tbody>
                 </table>
             </section>
+            <!-- End Teacher Section Code -->
 
+
+            <!-- Start Class Section Code -->
             <section id="add-class" class="content-section bg-white p-6 rounded-lg shadow">
                 <h2 class="text-xl font-bold mb-4">Create Class</h2>
                 <input type="text" placeholder="Class Name (e.g. Grade 10)"
@@ -168,6 +182,9 @@
                 </select>
                 <input type="text" id="subName" placeholder="Subject Name"
                     class="w-full p-2 border rounded mb-4 max-w-md block">
+                <select id="teacher-dropdown" class="w-full p-2 border rounded mb-4 max-w-md block">
+                    <option value="">Select Teacher</option>
+                </select>
                 <button class="bg-orange-600 text-white px-4 py-2 rounded" id="addNewSubject">Assign Subject</button>
             </section>
 
@@ -215,21 +232,37 @@
                     </tbody>
                 </table>
             </section>
+            <!-- End Class Section Code -->
         </main>
     </div>
+
+
+
+    <!--------------------------------------------------POPUP CODE--------------------------------------------->
+
 
     <!-- Edit student data popup code -->
     <div id="editStudentPopup" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center">
         <div class="bg-white p-6 rounded w-96">
             <h2 class="text-xl font-bold mb-4">Edit Student</h2>
+
             <input id="editName" class="w-full border p-2 mb-3" placeholder="Name">
             <input id="editEmail" class="w-full border p-2 mb-4" placeholder="Email">
+
             <div class="flex justify-end gap-2">
                 <button id="cancelEdit" class="bg-gray-400 px-4 py-2 text-white rounded">Cancel</button>
                 <button id="saveEdit" class="bg-blue-600 px-4 py-2 text-white rounded">Save</button>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
 
 
     <script type="module" src="js/main.js"></script>
