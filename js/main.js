@@ -1,6 +1,8 @@
 import { Auth } from "../modules/Auth.js";
 import { Student } from "../modules/Student.js";
 import { Classes } from "../modules/Classes.js";
+import { Teacher } from "../modules/Teacher.js";
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	// Code to run when the DOM is ready
@@ -15,53 +17,76 @@ function saveNewStudent() {
 	const studentInfo = {};
 	const idsList = CONFIG.addStudentsFieldIds;
 	let validation = true;
-	for(let i=0;i<idsList.length;i++){
+	for (let i = 0; i < idsList.length; i++) {
 		const id_name = idsList[i];
 		studentInfo[id_name] = document.getElementById(id_name).value;
-		if(studentInfo[id_name]==''){
+		if (studentInfo[id_name] == '') {
 			alert(`${id_name} cannot be blanked`);
 			validation = false;
 			break;
 		}
 	}
 
-	if(validation){        
+	if (validation) {
 		const s = new Student();
 		s.addNewStudent(studentInfo);
 	}
 }
 
-document.getElementById("viewStudents").addEventListener("click", function(){
+document.getElementById("viewStudents").addEventListener("click", function () {
 	const s = new Student();
 	const resultBody = document.querySelector('#view-student table tbody');
 	s.viewStudent(resultBody);
 });
 
-/**Class Actions */
-document.getElementById("add-new-class").addEventListener("click", function(){
-	const className = document.getElementById("class_name").value;
-	if(className){
-		const c = new Classes();
-		c.addNewClass(className, 'class_name');
-	}else{
-		alert("Add Class Name");
-	}	
-});
-document.getElementById("addNewSubject").addEventListener("click", function(){
-	const className = document.getElementById("class-dropdown").value;
-	const subName = document.getElementById("subName").value;
-	if(className && subName){
-		const c = new Classes();
-		c.addNewSubjectToClass(className, subName);
-	}else{
-		alert("Please Enter Subject and Class Name");
-	}	
+
+
+/*****Teacher Action******/
+//Save teacher data code with validation
+
+document.getElementById("saveTeacher").addEventListener("click", function () {
+
+	const name = document.getElementById("teacherName").value;
+	const expertise = document.getElementById("teacherExpertise").value;
+
+	if (name === "" || expertise === "") {
+		alert("All fields required");
+		return;
+	}
+
+	const t = new Teacher();
+	t.addTeacher({ name, expertise });
 });
 
-document.getElementById('Add-Subject-Menu').addEventListener("click", function(){
+
+
+
+
+/**Class Actions */
+document.getElementById("add-new-class").addEventListener("click", function () {
+	const className = document.getElementById("class_name").value;
+	if (className) {
+		const c = new Classes();
+		c.addNewClass(className, 'class_name');
+	} else {
+		alert("Add Class Name");
+	}
+});
+document.getElementById("addNewSubject").addEventListener("click", function () {
+	const className = document.getElementById("class-dropdown").value;
+	const subName = document.getElementById("subName").value;
+	if (className && subName) {
+		const c = new Classes();
+		c.addNewSubjectToClass(className, subName);
+	} else {
+		alert("Please Enter Subject and Class Name");
+	}
+});
+
+document.getElementById('Add-Subject-Menu').addEventListener("click", function () {
 	const existingClasses = localStorage.getItem("classes") || "[]";
 	const classes = JSON.parse(existingClasses);
-	if(classes.length){
+	if (classes.length) {
 		document.getElementById("class-dropdown").innerHTML = "";
 		const options = [];
 		options.push(`<option value=''>Select Class</option>`);
@@ -71,13 +96,13 @@ document.getElementById('Add-Subject-Menu').addEventListener("click", function()
 		document.getElementById("class-dropdown").innerHTML = options.join("");
 	}
 });
-document.getElementById('View-Class-Wise-Subject').addEventListener("click", function(){
+document.getElementById('View-Class-Wise-Subject').addEventListener("click", function () {
 	const existingSubjects = localStorage.getItem("subjects") || "[]";
 	const subjects = JSON.parse(existingSubjects);
-	if(subjects.length){
+	if (subjects.length) {
 		const rows = [];
-		document.getElementById('class-wise-subject-table-body').innerHTML="";
-		subjects.forEach((subject, index)=>{
+		document.getElementById('class-wise-subject-table-body').innerHTML = "";
+		subjects.forEach((subject, index) => {
 			const row = `<tr>
 					<td class="p-3 border font-semibold text-blue-600">Class ${subject.class}</td>
 					<td class="p-3 border">${subject.subject}</td>
@@ -91,8 +116,8 @@ document.getElementById('View-Class-Wise-Subject').addEventListener("click", fun
 				</tr>`
 			rows.push(row);
 		});
-		
-		document.getElementById('class-wise-subject-table-body').innerHTML=rows.join("");
-		
+
+		document.getElementById('class-wise-subject-table-body').innerHTML = rows.join("");
+
 	}
 });
