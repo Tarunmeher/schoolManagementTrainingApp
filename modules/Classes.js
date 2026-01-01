@@ -76,8 +76,8 @@ document.getElementById('View-Class-Wise-Subject').addEventListener("click", fun
 					<td class="p-3 border">${subject.subject}</td>
                     <td class="p-3 border">${subject.teacher || "Not Assigned"}</td>
 					<td class="p-3 border">
-						<button class="text-blue-600 mr-2 hover:underline"><i class="fas fa-edit"></i> Edit </button>
-						<button class="text-red-600 hover:underline"><i class="fas fa-trash"></i> Delete </button>
+						<button class="text-blue-600 mr-2 hover:underline edit-subject" data-index="${index}"><i class="fas fa-edit"></i> Edit </button>
+						<button class="text-red-600 hover:underline delete-subject" data-index="${index}"><i class="fas fa-trash"></i> Delete </button>
 					</td>
 				</tr>`
             rows.push(row);
@@ -87,5 +87,77 @@ document.getElementById('View-Class-Wise-Subject').addEventListener("click", fun
 
     }
 });
+
+
+
+//Load teachers name into edit popup window
+function loadTeachersForSubjectEdit(selectedTeacher = "") {
+
+    const dropdown = document.getElementById("editSubjectTeacher");
+    const teachers = JSON.parse(localStorage.getItem("teachers")) || [];
+    dropdown.innerHTML = "<option value=''>Select Teacher</option>";
+
+    teachers.forEach(t => {
+        const option = document.createElement("option");
+        option.value = t.name;
+        option.textContent = t.name;
+
+        if (t.name === selectedTeacher) {
+            option.selected = true;
+        }
+
+        dropdown.appendChild(option);
+    });
+}
+
+
+//Code edit and delete button
+let editSubjectIndex = null;
+
+document.addEventListener("click", function (e) {
+
+    //Edit subject code
+    if (e.target.classList.contains("edit-subject")) {
+
+        editSubjectIndex = e.target.dataset.index;
+        const subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+        const subject = subjects[editSubjectIndex];
+        document.getElementById("editSubjectName").value = subject.subject;
+        loadTeachersForSubjectEdit(subject.teacher);
+        document.getElementById("editSubjectPopup").classList.remove("hidden");
+    }
+
+    //Delete subject code
+    if (e.target.classList.contains("delete-subject")) {
+
+        const index = e.target.dataset.index;
+        const subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+
+        if (!confirm("Delete this subject?")) return;
+        subjects.splice(index, 1);
+        localStorage.setItem("subjects", JSON.stringify(subjects));
+        location.reload();
+    }
+});
+
+
+//Save edited suject and teacher data code
+document.getElementById("saveSubjectEdit").addEventListener("click", function () {
+
+    const subjects = JSON.parse(localStorage.getItem("subjects")) || [];
+    subjects[editSubjectIndex].subject = document.getElementById("editSubjectName").value;
+    subjects[editSubjectIndex].teacher = document.getElementById("editSubjectTeacher").value;
+    localStorage.setItem("subjects", JSON.stringify(subjects));
+
+    closeEditSubjectPopup();
+    location.reload();
+});
+
+document.getElementById("cancelSubjectEdit").addEventListener("click", closeEditSubjectPopup);
+
+function closeEditSubjectPopup() {
+    document.getElementById("editSubjectPopup").classList.add("hidden");
+}
+
 
 
